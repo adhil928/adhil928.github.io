@@ -1,0 +1,887 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><link rel="shortcut icon" href="logo.png" type="image/x-icon">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Services-Adil928</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@300;400;600;700&family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --primary: #6e3bce;
+            --secondary: #9d50ee;
+            --dark: #0a041c;
+            --accent: #ff4fe5;
+            --neon: #0afbff;
+            --text: #e6e1ff;
+        }
+        
+        body {
+            font-family: 'Exo 2', sans-serif;
+            color: var(--text);
+            background: linear-gradient(125deg, #05001f 0%, #1a0046 40%, #2c0170 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+        
+        #stars-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+        
+        .star {
+            position: absolute;
+            background-color: white;
+            border-radius: 50%;
+            animation: twinkle linear infinite;
+        }
+        
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.2; }
+            50% { opacity: 1; }
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        
+        /* Header & Navigation */
+        header {
+            padding: 2rem 0;
+            position: relative;
+            z-index: 10;
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.2rem;
+            font-weight: 700;
+            background: linear-gradient(45deg, var(--accent), var(--neon));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 15px rgba(10, 251, 255, 0.5);
+            letter-spacing: 1px;
+        }
+        
+        .logo span {
+            color: var(--neon);
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+        }
+        
+        .nav-links a {
+            color: var(--text);
+            text-decoration: none;
+            font-weight: 600;
+            position: relative;
+            padding: 0.5rem 0;
+            transition: all 0.3s ease;
+            font-size: 1.1rem;
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent), var(--neon));
+            transition: width 0.3s ease;
+        }
+        
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        
+        .nav-links a:hover {
+            color: var(--neon);
+            text-shadow: 0 0 10px rgba(10, 251, 255, 0.7);
+        }
+        
+        /* Page Header */
+        .page-header {
+            padding: 8rem 0 4rem;
+            text-align: center;
+            position: relative;
+        }
+        
+        .page-header h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(45deg, var(--accent), var(--neon));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 15px rgba(255, 79, 229, 0.5);
+        }
+        
+        .page-header p {
+            font-size: 1.4rem;
+            max-width: 800px;
+            margin: 0 auto;
+            color: #c0b3e6;
+        }
+        
+        /* Services Overview */
+        .services-overview {
+            padding: 4rem 0;
+            text-align: center;
+        }
+        
+        .services-overview p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto 3rem;
+            color: #c0b3e6;
+        }
+        
+        /* Services Grid */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2.5rem;
+            padding: 4rem 0;
+        }
+        
+        .service-card {
+            background: rgba(30, 10, 60, 0.6);
+            border-radius: 20px;
+            padding: 2.5rem;
+            transition: all 0.3s ease;
+            position: relative;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            overflow: hidden;
+            z-index: 1;
+        }
+        
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, rgba(110, 59, 206, 0.2), rgba(10, 251, 255, 0.2));
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(110, 59, 206, 0.4);
+            border-color: var(--accent);
+        }
+        
+        .service-card:hover::before {
+            opacity: 1;
+        }
+        
+        .service-icon {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--neon);
+            text-shadow: 0 0 15px rgba(10, 251, 255, 0.5);
+        }
+        
+        .service-title {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: var(--neon);
+        }
+        
+        .service-description {
+            font-size: 1.1rem;
+            color: #c0b3e6;
+            margin-bottom: 1.5rem;
+        }
+        
+        .service-features {
+            list-style: none;
+            margin-bottom: 2rem;
+        }
+        
+        .service-features li {
+            padding: 0.5rem 0;
+            color: #c0b3e6;
+            position: relative;
+            padding-left: 1.5rem;
+        }
+        
+        .service-features li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--neon);
+            font-weight: bold;
+        }
+        
+        .service-button {
+            display: inline-block;
+            padding: 0.8rem 1.5rem;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            color: white;
+            border: none;
+            border-radius: 30px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(110, 59, 206, 0.5);
+        }
+        
+        .service-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(110, 59, 206, 0.7);
+        }
+        
+        /* Process Section */
+        .process-section {
+            padding: 6rem 0;
+            text-align: center;
+        }
+        
+        .section-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 3rem;
+            text-align: center;
+            margin-bottom: 4rem;
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 5px;
+            background: linear-gradient(90deg, var(--accent), var(--neon));
+            border-radius: 3px;
+        }
+        
+        .process-steps {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .process-step {
+            flex: 1;
+            min-width: 250px;
+            padding: 2rem;
+            background: rgba(30, 10, 60, 0.6);
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .step-number {
+            display: inline-block;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 1.5rem;
+        }
+        
+        .step-title {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--neon);
+        }
+        
+        .step-description {
+            color: #c0b3e6;
+        }
+        
+        /* FAQ Section */
+        .faq-section {
+            padding: 6rem 0;
+        }
+        
+        .faq-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .faq-item {
+            margin-bottom: 1.5rem;
+            background: rgba(30, 10, 60, 0.6);
+            border-radius: 10px;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .faq-question {
+            padding: 1.5rem;
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--neon);
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .faq-answer {
+            padding: 0 1.5rem;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease, padding 0.3s ease;
+            color: #c0b3e6;
+        }
+        
+        .faq-item.active .faq-answer {
+            padding: 0 1.5rem 1.5rem;
+            max-height: 300px;
+        }
+        
+        .faq-toggle {
+            font-size: 1.2rem;
+            transition: transform 0.3s ease;
+        }
+        
+        .faq-item.active .faq-toggle {
+            transform: rotate(45deg);
+        }
+        
+        /* CTA Section */
+        .cta-section {
+            padding: 6rem 0;
+            text-align: center;
+            background: rgba(30, 10, 60, 0.3);
+            margin: 4rem 0;
+            border-radius: 20px;
+        }
+        
+        .cta-section h2 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--neon);
+        }
+        
+        .cta-section p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto 2rem;
+            color: #c0b3e6;
+        }
+        
+        .cta-buttons {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            padding: 1.2rem 2.8rem;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 20px rgba(110, 59, 206, 0.5);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .cta-button.outline {
+            background: transparent;
+            border: 2px solid var(--neon);
+            color: var(--neon);
+            box-shadow: 0 5px 20px rgba(10, 251, 255, 0.3);
+        }
+        
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: all 0.5s ease;
+        }
+        
+        .cta-button:hover::before {
+            left: 100%;
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(110, 59, 206, 0.7);
+        }
+        
+        .cta-button.outline:hover {
+            box-shadow: 0 10px 25px rgba(10, 251, 255, 0.5);
+        }
+        
+        /* Footer */
+        footer {
+            background: rgba(10, 4, 28, 0.95);
+            padding: 4rem 0 2rem;
+            text-align: center;
+            margin-top: 5rem;
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+        
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            color: white;
+            font-size: 1.8rem;
+            transition: all 0.3s ease;
+        }
+        
+        .social-links a:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 20px rgba(110, 59, 206, 0.6);
+        }
+        
+        .copyright {
+            font-size: 1.1rem;
+            color: #a99de0;
+            margin-top: 2rem;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 1000px) {
+            .process-steps {
+                flex-direction: column;
+            }
+            
+            .page-header h1 {
+                font-size: 3.5rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+                background: none;
+                border: none;
+                color: white;
+                font-size: 1.8rem;
+                cursor: pointer;
+            }
+            
+            .page-header h1 {
+                font-size: 3rem;
+            }
+            
+            .section-title {
+                font-size: 2.5rem;
+            }
+            
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .cta-button {
+                width: 100%;
+                max-width: 300px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .page-header h1 {
+                font-size: 2.5rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .service-card {
+                padding: 2rem;
+            }
+            .back-button {
+                top: 20px;
+                left: 20px;
+                padding: 0.6rem 1.2rem;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="stars-container"></div>
+    <a href="index.html" class="back-button">
+        <i class="fas fa-arrow-left"></i> Back to home
+    </a>
+    <header>
+        <div class="container">
+            <nav>
+                <a href="index.html" class="logo">ADIL<span>928</span></a>
+                <div class="nav-links">
+                    <a href="index.html">Home</a>
+                    <a href="about.html">About</a>
+                    <a href="services.html" class="active">Services</a>
+                    <a href="project.html">Projects</a>
+                    <a href="contact.html">Contact</a>
+                </div>
+                <button class="mobile-menu-btn" style="display: none;">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </nav>
+        </div>
+    </header>
+    
+    <section class="page-header">
+        <div class="container">
+            <h1>My Services</h1>
+            <p>Comprehensive web design and development solutions tailored to your unique needs</p>
+        </div>
+    </section>
+    
+    <section class="services-overview">
+        <div class="container">
+            <p>I offer a full range of web design and development services to help bring your digital vision to life. From initial concept to final implementation, I work closely with clients to create stunning, functional websites that deliver results.</p>
+        </div>
+    </section>
+    
+    <section class="services-grid">
+        <div class="container">
+            <div class="service-card">
+                <div class="service-icon">
+                    <i class="fas fa-paint-brush"></i>
+                </div>
+                <h3 class="service-title">UI/UX Design</h3>
+                <p class="service-description">Creating intuitive user interfaces and experiences that engage your audience and drive conversions.</p>
+                <ul class="service-features">
+                    <li>User Research & Analysis</li>
+                    <li>Wireframing & Prototyping</li>
+                    <li>Interactive Design</li>
+                    <li>Usability Testing</li>
+                    <li>Design System Creation</li>
+                </ul>
+                <a href="#contact" class="service-button">Get Started</a>
+            </div>
+            
+            <div class="service-card">
+                <div class="service-icon">
+                    <i class="fas fa-code"></i>
+                </div>
+                <h3 class="service-title">Web Development</h3>
+                <p class="service-description">Building responsive, fast, and accessible websites using the latest technologies and best practices.</p>
+                <ul class="service-features">
+                    <li>Custom Website Development</li>
+                    <li>Frontend & Backend Solutions</li>
+                    <li>E-commerce Integration</li>
+                    <li>Content Management Systems</li>
+                    <li>Performance Optimization</li>
+                </ul>
+                <a href="#contact" class="service-button">Get Started</a>
+            </div>
+            
+            <div class="service-card">
+                <div class="service-icon">
+                    <i class="fas fa-mobile-alt"></i>
+                </div>
+                <h3 class="service-title">Responsive Design</h3>
+                <p class="service-description">Ensuring your website looks and works perfectly on all devices, from desktops to smartphones.</p>
+                <ul class="service-features">
+                    <li>Mobile-First Approach</li>
+                    <li>Cross-Browser Compatibility</li>
+                    <li>Touch-Friendly Interfaces</li>
+                    <li>Adaptive Layouts</li>
+                    <li>Performance Optimization</li>
+                </ul>
+                <a href="#contact" class="service-button">Get Started</a>
+            </div>
+            
+            <div class="service-card">
+                <div class="service-icon">
+                    <i class="fas fa-pencil-alt"></i>
+                </div>
+                <h3 class="service-title">Branding</h3>
+                <p class="service-description">Developing cohesive brand identities that communicate your values and resonate with your target audience.</p>
+                <ul class="service-features">
+                    <li>Logo & Identity Design</li>
+                    <li>Brand Guidelines</li>
+                    <li>Visual Identity Systems</li>
+                    <li>Marketing Materials</li>
+                    <li>Brand Strategy</li>
+                </ul>
+                <a href="#contact" class="service-button">Get Started</a>
+            </div>
+            
+            <div class="service-card">
+                <div class="service-icon">
+                    <i class="fas fa-shopping-cart"></i>
+                </div>
+                <h3 class="service-title">E-commerce Solutions</h3>
+                <p class="service-description">Creating online stores that are not only beautiful but also optimized for conversions and sales.</p>
+                <ul class="service-features">
+                    <li>Online Store Setup</li>
+                    <li>Payment Gateway Integration</li>
+                    <li>Product Management</li>
+                    <li>Inventory Systems</li>
+                    <li>Sales Analytics</li>
+                </ul>
+                <a href="#contact" class="service-button">Get Started</a>
+            </div>
+            
+            <div class="service-card">
+                <div class="service-icon">
+                    <i class="fas fa-tools"></i>
+                </div>
+                <h3 class="service-title">Website Maintenance</h3>
+                <p class="service-description">Keeping your website secure, up-to-date, and running smoothly with ongoing support and maintenance.</p>
+                <ul class="service-features">
+                    <li>Regular Updates</li>
+                    <li>Security Monitoring</li>
+                    <li>Backup Solutions</li>
+                    <li>Technical Support</li>
+                    <li>Content Updates</li>
+                </ul>
+                <a href="#contact" class="service-button">Get Started</a>
+            </div>
+        </div>
+    </section>
+    
+    <section class="process-section">
+        <div class="container">
+            <h2 class="section-title">My Process</h2>
+            <p style="max-width: 800px; margin: 0 auto 3rem; color: #c0b3e6; font-size: 1.2rem;">I follow a structured approach to ensure every project is delivered on time and exceeds expectations.</p>
+            
+            <div class="process-steps">
+                <div class="process-step">
+                    <div class="step-number">1</div>
+                    <h3 class="step-title">Discovery</h3>
+                    <p class="step-description">We discuss your goals, target audience, and requirements to establish a clear project direction.</p>
+                </div>
+                
+                <div class="process-step">
+                    <div class="step-number">2</div>
+                    <h3 class="step-title">Planning</h3>
+                    <p class="step-description">I create a detailed project plan with timelines, milestones, and deliverables.</p>
+                </div>
+                
+                <div class="process-step">
+                    <div class="step-number">3</div>
+                    <h3 class="step-title">Design</h3>
+                    <p class="step-description">I develop wireframes and design mockups for your review and feedback.</p>
+                </div>
+                
+                <div class="process-step">
+                    <div class="step-number">4</div>
+                    <h3 class="step-title">Development</h3>
+                    <p class="step-description">I bring the designs to life with clean, efficient code and thorough testing.</p>
+                </div>
+                
+                <div class="process-step">
+                    <div class="step-number">5</div>
+                    <h3 class="step-title">Launch</h3>
+                    <p class="step-description">Your website goes live, and I provide training and support for ongoing management.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="faq-section">
+        <div class="container">
+            <h2 class="section-title">Frequently Asked Questions</h2>
+            
+            <div class="faq-container">
+                <div class="faq-item">
+                    <div class="faq-question">
+                        How long does a typical website project take?
+                        <span class="faq-toggle">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        The timeline varies depending on the complexity of the project. A simple brochure website typically takes 2-4 weeks, while more complex e-commerce or custom web applications can take 6-12 weeks. I provide a detailed timeline during our initial consultation.
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        Do you provide website hosting?
+                        <span class="faq-toggle">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        I can recommend reliable hosting providers based on your needs, and I offer managed hosting services as part of my maintenance packages. This includes regular backups, security monitoring, and performance optimization.
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        Can you work with my existing brand guidelines?
+                        <span class="faq-toggle">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        Absolutely! I can seamlessly integrate your existing brand identity into the website design. If you don't have established guidelines, I can help develop a cohesive visual identity for your brand.
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        What happens after my website is launched?
+                        <span class="faq-toggle">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        After launch, I provide training on how to manage your website content. I also offer ongoing maintenance packages to ensure your site remains secure, up-to-date, and performing optimally.
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        Do you offer e-commerce solutions?
+                        <span class="faq-toggle">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        Yes, I develop custom e-commerce websites with secure payment processing, inventory management, and customer relationship features. I can integrate with popular platforms or build custom solutions tailored to your business needs.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="cta-section">
+        <div class="container">
+            <h2>Ready to Start Your Project?</h2>
+            <p>Let's discuss how I can help bring your vision to life with a stunning, functional website.</p>
+            <div class="cta-buttons">
+                <a href="index.html#contact" class="cta-button">Get In Touch</a>
+                <a href="index.html#projects" class="cta-button outline">View My Work</a>
+            </div>
+        </div>
+    </section>
+    
+    <footer>
+        <div class="container">
+            <div class="social-links">
+                <a href="#"><i class="fab fa-dribbble"></i></a>
+                <a href="#"><i class="fab fa-behance"></i></a>
+                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                <a href="#"><i class="fab fa-github"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+            </div>
+            <p class="copyright">© 2023 Adil928. All rights reserved. Designed in the cosmos.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Create stars for background
+        document.addEventListener('DOMContentLoaded', function() {
+            const starsContainer = document.getElementById('stars-container');
+            const starCount = 200;
+            
+            for (let i = 0; i < starCount; i++) {
+                const star = document.createElement('div');
+                star.classList.add('star');
+                
+                const size = Math.random() * 3;
+                star.style.width = `${size}px`;
+                star.style.height = `${size}px`;
+                
+                star.style.left = `${Math.random() * 100}%`;
+                star.style.top = `${Math.random() * 100}%`;
+                
+                const duration = 3 + Math.random() * 10;
+                star.style.animationDuration = `${duration}s`;
+                
+                starsContainer.appendChild(star);
+            }
+            
+            // Smooth scrolling for navigation links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    const targetId = this.getAttribute('href');
+                    if (targetId === '#') return;
+                    
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 100,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+            
+            // FAQ toggle functionality
+            const faqItems = document.querySelectorAll('.faq-item');
+            faqItems.forEach(item => {
+                const question = item.querySelector('.faq-question');
+                question.addEventListener('click', () => {
+                    item.classList.toggle('active');
+                });
+            });
+            
+            // Parallax effect for stars
+            window.addEventListener('scroll', function() {
+                const scrolled = window.pageYOffset;
+                const stars = document.querySelectorAll('.star');
+                
+                stars.forEach((star, index) => {
+                    const speed = 0.2 + (index * 0.001);
+                    star.style.transform = `translateY(${scrolled * speed}px)`;
+                });
+            });
+        });
+    </script>
+</body>
+</html>
